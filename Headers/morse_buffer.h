@@ -1,0 +1,1 @@
+#define MORSE_BUFFER_H

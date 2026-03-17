@@ -1,0 +1,1 @@
+#define MORSE_THREAD_H
