@@ -40,9 +40,9 @@ const char *morse_get_symbol(char c)
 
   if (c = ' ') //space
     return " ";
-  retutn NULL;
+  return NULL;
 }
 
 
 
-}
+
