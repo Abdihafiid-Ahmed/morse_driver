@@ -10,12 +10,14 @@ void circlebuff_init(struct morse_buffer *buff, int size){
   buff->count = 0;
   buff->size  = size;
 
-  if (buff->size > MORSE_BUFFER_MAX){
-    buff->size = MORSE_BUFFER_MAX;
+  /////modulo by zero is undefined behavior and may or may not crash the program
+  if (size < 1)
+    size = 1;
+
+  if (buff->size > MORSE_BUFFER_MAX)
+      buff->size = MORSE_BUFFER_MAX;
   else
-    buff->size = size;
-  }
-  }
+      buff->size = size;} 
 
 //resize if meet conditions
 int circlebuff_resize(struct morse_buffer *buff, int new_size){
@@ -43,7 +45,7 @@ int circlebuff_empty(struct morse_buffer *buff)
 //calculate reamaining slots  
 int circlebuff_freespace(struct morse_buffer *buff)
 {
-  return buff->size - buf->count;
+  return buff->size - buff->count;
 
 }
 
