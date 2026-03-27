@@ -48,4 +48,27 @@ int circlebuff_freespace(struct morse_buffer *buff)
 }
 
 
-} 
+///////start of the circular buffer
+int circlebuff_add(struct morse_buffer *buff, char c)
+{
+  if (circlebuff_full(buff))
+      return -EAGAIN;
+
+  buff->data[buff->tail] = c;
+
+  /////core idea for the circular buffer
+  buff->tail = (buff->tail + 1) % buff->size;
+  buff->count++;
+  return 0;
+
+}
+int circlebuff_remove(struct morse_buffer *buff, char *c){
+  if (circlebuff_empty(buff))
+      return -EAGAIN;
+
+  *c = buff->data[buff->head];
+  buff->head = (buff->head + 1) % buff->size;
+  buff->count--;
+  return 0;
+}
+ 
