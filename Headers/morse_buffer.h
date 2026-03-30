@@ -1,3 +1,5 @@
+#ifndef MORSE_BUFFER_H
+
 #define MORSE_BUFFER_H
 
 #define MORSE_BUFFER_MAX 1024 //maximum capacity  
@@ -21,3 +23,7 @@ int circlebuff_freespace(struct morse_buffer *buff);
 
 int circlebuff_add(struct morse_buffer *buff, char c);
 int circlebuff_remove(struct morse_buffer *buff, char *c);
+
+
+#endif 
+
