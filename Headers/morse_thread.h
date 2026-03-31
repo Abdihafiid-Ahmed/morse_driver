@@ -8,6 +8,6 @@ int morse_thread_start(struct morse_buffer *buff);
 void morse_thread_stop(void);
 
 //duration of ledlight blink
-void morse_thread_unit(int ms);
+void morse_thread_set_unit(int ms);
 
 #endif

@@ -1,5 +1,5 @@
 #include <linux/io.h>
-#include "Headers/morse_led.h"
+#include "morse_led.h"
 
 #define GPIO_BASE_ADDR  0x3F200000
 #define GPIO_RANGE      0xB4
@@ -9,7 +9,7 @@
 
 #define LED_PIN_BIT     (1 << 29)
 
-static void __ionem *gpio_regs = NULL;
+static void __iomem *gpio_regs = NULL;
 
 
 int led_init(void)
@@ -42,7 +42,7 @@ void led_on(void){
 void led_off(void) 
 {
   if (gpio_regs)
-    iowrite32(LED_PIN_BIT, gpio_regs + SET_OFF)
+    iowrite32(LED_PIN_BIT, gpio_regs + SET_OFF);
 
 }
 

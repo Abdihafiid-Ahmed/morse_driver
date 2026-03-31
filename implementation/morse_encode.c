@@ -1,7 +1,6 @@
-#include <stdio.h>
-
 #include "morse_encode.h"
-
+#include <linux/kernel.h>
+#include <linux/types.h>  
 static const char *morse_letters[26] = {
   //A     b       c       d     e
   ".-", "-...", "-.-.", "-..", ".", 
@@ -19,7 +18,7 @@ static const char *morse_letters[26] = {
 
 static const char *morse_numbers[10] = {
   // 0         1        2         3      4 
-    "----", ".----", "..---", "...--", "....-
+    "-----", ".----", "..---", "...--", "....-",
 //   5         6         7        8       9 
     ".....", "-....", "--...", "---..", "----."
   };
@@ -38,7 +37,7 @@ const char *morse_get_symbol(char c)
   if (c >= '0' && c <= '9') 
     return morse_numbers[c - '0'];
 
-  if (c = ' ') //space
+  if (c == ' ') //space
     return " ";
   return NULL;
 }

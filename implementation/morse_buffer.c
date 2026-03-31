@@ -8,13 +8,13 @@ void circlebuff_init(struct morse_buffer *buff, int size){
   buff->head  = 0;
   buff->tail  = 0;
   buff->count = 0;
-  buff->size  = size;
-
-  /////modulo by zero is undefined behavior and may or may not crash the program
+/////modulo by zero is undefined behavior and may or may not crash the program
   if (size < 1)
     size = 1;
 
-  if (buff->size > MORSE_BUFFER_MAX)
+  buff->size  = size;
+
+    if (buff->size > MORSE_BUFFER_MAX)
       buff->size = MORSE_BUFFER_MAX;
   else
       buff->size = size;} 
