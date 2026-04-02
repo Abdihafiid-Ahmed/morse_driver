@@ -146,6 +146,27 @@ static ssize_t morse_write(struct file *filp,
 		return 0;
 
 
+  ///non blocking i/o 
+  mutex_lock(&morse_buff_mutex);
+  if(circlebuff_freespace(shared_ev_buff) == 0)
+  {
+    mutex_unlock(&morse_buff_mutex);
+    if(filp->f_flags & O_NONBLOCK)
+      return -EAGAIN;
+
+
+    if (wait_event_interruptivle(morse_wait_queue, circlebuff_freespace(shared_ev_buff) > 0))
+      return -ERESTARTSYS;
+
+    mutex_lock(&morse_buff_mutex);
+
+  }
+
+  mutex_unlock(&morse_buff_mutex);
+
+
+
+
   //////allocate the ((kernel)) buffer
 	k_buf = kmalloc(count, GFP_KERNEL);
 	if (!k_buf)
@@ -182,6 +203,16 @@ static long morse_ioctl(struct file *filp,
 		morse_thread_set_unit((int)arg);
 		return 0;
 	}
+
+  if (cmd == 1)
+  {
+    extern struct mutex morse_buff_mutex;
+    int ret;
+    mutex_lock(&morse_buff_mutex);
+    ret = circlebuff_resize(shared_ev_buff, (int)arg);
+    mutex_unlock(&morse_buff_mutex);
+    return ret;
+  }
 
 	return -ENOTTY;
 }

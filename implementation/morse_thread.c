@@ -91,7 +91,7 @@ static int transmit_fn(void *data)
 
     if (symbol[0] == ' ')
     {
-      msleep(unit_ms * 4);
+      msleep(unit_ms * 6);
 
     } else 
   {
