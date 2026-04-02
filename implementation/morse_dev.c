@@ -155,7 +155,7 @@ static ssize_t morse_write(struct file *filp,
       return -EAGAIN;
 
 
-    if (wait_event_interruptivle(morse_wait_queue, circlebuff_freespace(shared_ev_buff) > 0))
+    if (wait_event_interruptible(morse_wait_queue, circlebuff_freespace(shared_ev_buff) > 0))
       return -ERESTARTSYS;
 
     mutex_lock(&morse_buff_mutex);
