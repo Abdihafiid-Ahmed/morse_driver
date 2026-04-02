@@ -91,12 +91,14 @@ static int transmit_fn(void *data)
 
     if (symbol[0] == ' ')
     {
+      led_off();
       msleep(unit_ms * 6);
 
     } else 
   {
       flash_light(symbol);
-      msleep(unit_ms * 2);
+      led_off();
+      msleep(unit_ms * 3);
     }
   }
 
